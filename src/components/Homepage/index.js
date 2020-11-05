@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import PriorityQueue from 'js-priority-queue';
+import './style.css';
 class Homepage extends React.Component{
     constructor(props) {
         super(props);
@@ -8,7 +8,8 @@ class Homepage extends React.Component{
     }
     componentDidMount(){
         var tmp=[];
-        axios.get('https://api.github.com/orgs/google/repos')
+        console.log(this.props.org);
+        axios.get('https://api.github.com/orgs/'+this.props.org+'/repos')
         .then((response)=>{
             response.data.forEach(e=>{
                 tmp.push({
@@ -16,6 +17,7 @@ class Homepage extends React.Component{
                     name:e.name,
                     forks:e.forks_count,
                     contributors_url:e.contributors_url,
+                    desc:e.description
                 })
             })
         })
@@ -25,16 +27,20 @@ class Homepage extends React.Component{
             })
             this.setState({data:tmp})
         })
+        .catch((error)=>{
+            console.log(error);
+        })
     }
     render(){
         return(
             <>
-                <h1>Github Query</h1>
-                <h3>Name - Forks</h3>
                 {
                     this.state.data.map((e)=>{
                         return(
-                            <h4 key={e.id} >{e.name} - {e.forks}</h4>
+                            <div  className="repo" key={e.id}>
+                                <h4 key={e.id} >{e.name} - {e.forks}</h4>
+                                <p>{e.desc}</p>
+                            </div>
                         )
                     })
                 }
