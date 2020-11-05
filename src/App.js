@@ -1,18 +1,41 @@
 import React from 'react'
 import Home from './components/Homepage';
 import Form from './components/Form'
+import axios from 'axios';
 import './App.css';
 class App extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {org:"",m:"",n:""};
-    // this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  state = {org:"",m:"",n:"",data:[]};
+  componentDidUpdate(prevState){
+    if(this.state.org!==prevState.org){
+      var tmp=[];
+      if(this.state.org){
+        axios.get('https://api.github.com/orgs/'+this.state.org+'/repos')
+        .then((response)=>{
+            response.data.forEach(e=>{
+                tmp.push({
+                    id:e.id,
+                    name:e.name,
+                    forks:e.forks_count,
+                    contributors_url:e.contributors_url,
+                    desc:e.description
+                })
+            })
+        })
+        .then(()=>{
+            tmp.sort(function(a,b){
+                return b.forks-a.forks
+            })
+            this.setState({data:tmp})
+            // console.log(this.state.data)
+        })
+        .catch((error)=>{
+          this.setState({status:404})
+            console.log(error);
+        })
+      }
+    }
   }
-  // handleChange(event){
-  //   this.setState({[event.target.name]: event.target.value})
-  // };
-  handleSubmit(event) {
+  handleSubmit=(event)=> {
     event.preventDefault();
     this.setState({
       org:event.target.elements.org.value,
@@ -22,19 +45,32 @@ class App extends React.Component{
     console.log(this.state);
   }
   render(){
-    return (
-      <div className="App">
-        <h1>Github Query</h1>
-        <Form
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          org={this.state.org}
-          m={this.state.m}
-          n={this.state.n}>
-        </Form>
-        <Home org="google"/>
-      </div>
-    )
+    if(this.state.data.length!==0){
+      return (
+        <div className="App">
+          <h1>Github Query</h1>
+          <Form
+            handleSubmit={this.handleSubmit}
+            org={this.state.org}
+            m={this.state.m}
+            n={this.state.n}>
+          </Form>
+          <Home data={this.state.data} key={this.state.org}/>
+        </div>
+      )
+    }else{
+      return(
+        <div className="App">
+          <h1>Github Query</h1>
+          <Form
+            handleSubmit={this.handleSubmit}
+            org={this.state.org}
+            m={this.state.m}
+            n={this.state.n}>
+          </Form>
+        </div>
+      )
+    }
   }
 }
 export default App;
