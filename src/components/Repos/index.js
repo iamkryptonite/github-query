@@ -6,6 +6,11 @@ class Homepage extends React.Component{
         this.setState({data:this.props.data});
         console.log(this.state.data);
     }
+    componentDidUpdate(prevProps){
+        if(this.props!==prevProps){
+            this.setState({data:this.props.data});
+        }
+    }
     render(){
         if(this.state.data){
             return(

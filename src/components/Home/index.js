@@ -1,9 +1,9 @@
 import React from 'react'
-import Home from './components/Repos';
-import Form from './components/Form'
+import Home from '../components/Repos';
+import Form from '../components/Form'
 import axios from 'axios';
-import './App.css';
-class App extends React.Component{
+import './style.css';
+class Home extends React.Component{
   state = {org:"",m:"",n:"",data:[]};
   componentDidUpdate(prevState){
     if(this.state.org!==prevState.org){
@@ -47,7 +47,7 @@ class App extends React.Component{
   render(){
     if(this.state.data.length!==0){
       return (
-        <div className="App">
+        <div className="home">
           <h1>Github Query</h1>
           <Form
             handleSubmit={this.handleSubmit}
@@ -60,7 +60,7 @@ class App extends React.Component{
       )
     }else{
       return(
-        <div className="App">
+        <div className="home">
           <h1>Github Query</h1>
           <Form
             handleSubmit={this.handleSubmit}
@@ -73,4 +73,4 @@ class App extends React.Component{
     }
   }
 }
-export default App;
+export default Home;
