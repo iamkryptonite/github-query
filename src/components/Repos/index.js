@@ -5,7 +5,6 @@ class Repos extends React.Component{
     state={}
     componentDidMount(){
         this.setState({data:this.props.data});
-        // console.log(this.state.data);
     }
     componentDidUpdate(){
         if(this.state.data!==this.props.data){
@@ -41,9 +40,7 @@ class Repos extends React.Component{
             )
 
         }return(
-            <>
-                <h1>Oops....</h1>
-            </>
+            <></>
         )
     }
 }

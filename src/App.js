@@ -38,6 +38,14 @@ class App extends React.Component{
             console.log(error);
         })
       }
+    }else if(cache.get(this.state.org)){
+      var store = cache.get(this.state.org);
+      this.setState({
+        org:store.org,
+        m:store.m,
+        n:store.n,
+        data:store.data
+      })
     }
   }
   handleSubmit=(event)=> {
