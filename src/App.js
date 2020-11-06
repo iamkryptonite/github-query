@@ -1,6 +1,7 @@
-import React from 'react'
-import Home from './components/Repos';
+import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Form from './components/Form'
+import Home from './components/Home'
 import axios from 'axios';
 import './App.css';
 class App extends React.Component{
@@ -26,7 +27,6 @@ class App extends React.Component{
                 return b.forks-a.forks
             })
             this.setState({data:tmp})
-            // console.log(this.state.data)
         })
         .catch((error)=>{
           this.setState({status:404})
@@ -45,32 +45,19 @@ class App extends React.Component{
     console.log(this.state);
   }
   render(){
-    if(this.state.data.length!==0){
-      return (
-        <div className="App">
-          <h1>Github Query</h1>
-          <Form
-            handleSubmit={this.handleSubmit}
+    return(
+      <div className="App">
+        <h1>Github Query</h1>
+        <Form handleSubmit={this.handleSubmit}
             org={this.state.org}
             m={this.state.m}
             n={this.state.n}>
-          </Form>
-          <Home data={this.state.data} key={this.state.org}/>
-        </div>
-      )
-    }else{
-      return(
-        <div className="App">
-          <h1>Github Query</h1>
-          <Form
-            handleSubmit={this.handleSubmit}
-            org={this.state.org}
-            m={this.state.m}
-            n={this.state.n}>
-          </Form>
-        </div>
-      )
+        </Form>
+        <Router>
+          <Route exact path="/"><Home data={this.state}/></Route>
+        </Router>
+      </div>
+    )
     }
-  }
 }
 export default App;

@@ -1,18 +1,18 @@
 import React from 'react';
 import './style.css';
-class Homepage extends React.Component{
+class Repos extends React.Component{
     state={}
     componentDidMount(){
         this.setState({data:this.props.data});
         console.log(this.state.data);
     }
-    componentDidUpdate(prevProps){
-        if(this.props!==prevProps){
+    componentDidUpdate(){
+        if(this.state.data!==this.props.data){
             this.setState({data:this.props.data});
         }
     }
     render(){
-        if(this.state.data){
+        if(this.state.data.length!==0){
             return(
                 <>
                     {
@@ -30,8 +30,10 @@ class Homepage extends React.Component{
             )
 
         }return(
-            <></>
+            <>
+                <h1>Oops....</h1>
+            </>
         )
     }
 }
-export default Homepage
+export default Repos
