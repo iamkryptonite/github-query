@@ -55,6 +55,10 @@ class App extends React.Component{
       m:event.target.elements.m.value,
       n:event.target.elements.n.value,
     })
+    // console.log(this.state);
+  }
+  handleClick=(e)=>{
+    this.setState({repo:e})
     console.log(this.state);
   }
   render(){
@@ -67,8 +71,8 @@ class App extends React.Component{
             n={this.state.n}>
         </Form>
         <Router>
-          <Route exact path="/"><Home data={this.state}/></Route>
-          <Route path="/contributors"><Contributors/></Route>
+          <Route exact path="/"><Home data={this.state} handleClick={this.handleClick}/></Route>
+          <Route path="/contributors"><Contributors repo={this.state.repo}/></Route>
         </Router>
       </div>
     )

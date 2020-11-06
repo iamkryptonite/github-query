@@ -9,7 +9,7 @@ class Home extends React.Component{
       n:this.props.data.n,
       data:this.props.data.data
     })
-    console.log(this.props);
+    // console.log(this.props);
   }
   componentDidUpdate(prevProps){
     if(this.props!==prevProps){
@@ -24,7 +24,12 @@ class Home extends React.Component{
     if(this.state.data.length!==0){
       return (
         <div className="home">
-          <Repos data={this.state.data} org={this.state.org} key={this.state.org}/>
+          <Repos
+            data={this.state.data}
+            org={this.state.org}
+            key={this.state.org}
+            handleClick={this.props.handleClick}>
+          </Repos>
         </div>
       )
     }else{

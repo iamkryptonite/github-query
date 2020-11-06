@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React from 'react';
 import './style.css';
+import { BrowserRouter as Router, Route ,Link} from "react-router-dom";
 class Repos extends React.Component{
     state={}
     componentDidMount(){
@@ -11,15 +11,6 @@ class Repos extends React.Component{
             this.setState({data:this.props.data});
         }
     }
-    getContributors=(e)=>{
-        return(
-        axios.get(e).then((res)=>{
-            res.map((contributor)=>{
-                return(
-                    <li key={contributor.id}>{contributor.login}</li>
-            )})
-        })
-    )}
     render(){
         if(this.state.data){
             return(
@@ -30,8 +21,8 @@ class Repos extends React.Component{
                                 <div  className="repo" key={e.id}>
                                     <h4 key={e.id} >{e.name} - {e.forks}</h4>
                                     <p>{e.desc}</p>
-                                    <a href={e.contributors_url}>{e.contributors_url}</a>
-                                    {/* <ul>{this.getContributors(e.contributors_url)}</ul> */}
+                                    {/* <a onClick={()=>this.props.handleClick(e)}>Contributors</a> */}
+                                    <Link onClick={()=>this.props.handleClick(e)} to="/contributors">Contributors</Link>
                                 </div>
                             )
                         })
