@@ -1,15 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Form from './components/Form'
-import Home from './components/Home'
+import Cache from 'cache';
 import axios from 'axios';
-import './App.css';
+import        './App.css';
+import Form from './components/Form';
+import Home from './components/Home';
+import Contributors from './components/Contributors';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+const cache = new Cache(3600 * 1000);    // Create a cache with 1 hr TTL
 class App extends React.Component{
   state = {org:"",m:"",n:"",data:[]};
   componentDidUpdate(prevState){
     if(this.state.org!==prevState.org){
       var tmp=[];
-      if(this.state.org){
+      if(this.state.org && !cache.get(this.state.org)){
         axios.get('https://api.github.com/orgs/'+this.state.org+'/repos')
         .then((response)=>{
             response.data.forEach(e=>{
@@ -27,6 +31,7 @@ class App extends React.Component{
                 return b.forks-a.forks
             })
             this.setState({data:tmp})
+            cache.put(this.state.org,this.state);
         })
         .catch((error)=>{
           this.setState({status:404})
@@ -55,6 +60,7 @@ class App extends React.Component{
         </Form>
         <Router>
           <Route exact path="/"><Home data={this.state}/></Route>
+          <Route path="/contributors"><Contributors/></Route>
         </Router>
       </div>
     )
