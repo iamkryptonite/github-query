@@ -9,7 +9,6 @@ class Home extends React.Component{
       n:this.props.data.n,
       data:this.props.data.data
     })
-    // console.log(this.props);
   }
   componentDidUpdate(prevProps){
     if(this.props!==prevProps){
@@ -28,6 +27,8 @@ class Home extends React.Component{
             data={this.state.data}
             org={this.state.org}
             key={this.state.org}
+            n={this.state.n}
+            m={this.state.m}
             handleClick={this.props.handleClick}>
           </Repos>
         </div>

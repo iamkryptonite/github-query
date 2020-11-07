@@ -11,7 +11,7 @@ const cache = new Cache(3600 * 1000);
 class App extends React.Component{
   state = {org:"",m:"",n:"",data:[],redirect:true};
   componentDidUpdate(prevState){
-    if(this.state.org!==prevState.org){
+    if(this.state!==prevState){
       var tmp=[];
       if(this.state.org && !cache.get(this.state.org)){
         axios.get('https://api.github.com/orgs/'+this.state.org+'/repos')
@@ -31,7 +31,7 @@ class App extends React.Component{
                 return b.forks-a.forks
             })
             this.setState({data:tmp})
-            cache.put(this.state.org,this.state);
+            cache.put(this.state.org,this.state.data);
         })
         .catch((error)=>{
           this.setState({status:404})
@@ -41,9 +41,6 @@ class App extends React.Component{
     }else if(cache.get(this.state.org)){
       var store = cache.get(this.state.org);
       this.setState({
-        org:store.org,
-        m:store.m,
-        n:store.n,
         data:store.data
       })
     }
@@ -55,12 +52,11 @@ class App extends React.Component{
       org:event.target.elements.org.value,
       m:event.target.elements.m.value,
       n:event.target.elements.n.value,
-      redirect:true
     })
+    console.log(this.state);
   }
   handleClick=(e)=>{
-    this.setState({repo:e,redirect:false})
-    console.log(this.state);
+    this.setState({repo:e})
   }
   render(){
     return(
@@ -74,7 +70,7 @@ class App extends React.Component{
         <div className="content">
           <Router>
             <Route exact path="/"><Home data={this.state} handleClick={this.handleClick}/></Route>
-            <Route path="/contributors"><Contributors repo={this.state.repo} org={this.state.org}/></Route>
+            <Route path="/contributors"><Contributors repo={this.state.repo} org={this.state.org} m={this.state.m}/></Route>
           </Router>
         </div>
       </div>
