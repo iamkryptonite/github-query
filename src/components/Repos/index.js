@@ -22,7 +22,8 @@ class Repos extends React.Component{
             data.map((e)=>{
                 return(
                     <div  className="repo" key={e.id}>
-                        <h4 key={e.id} >{e.name} - {e.forks}</h4>
+                        <h4 key={e.id} >{e.name} </h4>
+                        <h4>Forks : {e.forks}</h4>
                         <p>{e.desc}</p>
                         <Link onClick={()=>this.props.handleClick(e)} to="/contributors">Top Contributors</Link>
                     </div>

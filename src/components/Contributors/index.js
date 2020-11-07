@@ -28,10 +28,11 @@ class Contributors extends React.Component{
         }
     }
     componentDidUpdate(prevProps){
-        if(prevProps.org!==this.props.org){
+        if(prevProps.org!==this.props.org || prevProps.n!==this.props.n){
             console.log("changed!");
             this.setState({changed:true});
-        }else if(prevProps.m!==this.props.m){
+        }
+        if(prevProps.m!==this.props.m){
             this.setState({m:this.props.m});
         }
     }

@@ -9,7 +9,7 @@ import { BrowserRouter as Router,Route} from "react-router-dom";
 
 const cache = new Cache(3600 * 1000);
 class App extends React.Component{
-  state = {org:"",m:null,n:null,data:[]};
+  state = {org:"",m:null,n:null,data:[],status:200};
   componentDidUpdate(prevState){
     if(this.state!==prevState){
       var tmp=[];
@@ -35,7 +35,6 @@ class App extends React.Component{
         })
         .catch((error)=>{
           this.setState({status:404})
-            console.log(error);
         })
       }
     }else if(cache.get(this.state.org)){

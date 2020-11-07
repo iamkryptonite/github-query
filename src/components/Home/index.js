@@ -2,7 +2,7 @@ import React from 'react'
 import Repos from '../Repos';
 import './style.css';
 class Home extends React.Component{
-  state = {org:"",m:"",n:"",data:[]};
+  state = {...this.props.data};
   componentDidMount(){
     this.setState({org:this.props.data.org,
       m:this.props.data.m,
@@ -12,11 +12,7 @@ class Home extends React.Component{
   }
   componentDidUpdate(prevProps){
     if(this.props!==prevProps){
-      this.setState({org:prevProps.data.org,
-        m:prevProps.data.m,
-        n:prevProps.data.n,
-        data:prevProps.data.data
-      })
+      this.setState({...this.props.data})
     }
   }
   render(){
@@ -33,10 +29,17 @@ class Home extends React.Component{
           </Repos>
         </div>
       )
-    }else{
+    }else if(this.state.status===200){
       return(
         <div className="home">
-          <h1>Oops.........something went wrong</h1>
+          <h1>Enter the organization name,number of repositories and number of contributors</h1>
+        </div>
+      )
+    }else if(this.state.status===404){
+      return(
+        <div className="home">
+          <h1>Oops....something went wrong</h1>
+          <p>Make sure you enter the correct organisation name or try again after some time</p>
         </div>
       )
     }
