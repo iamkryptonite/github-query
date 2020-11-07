@@ -4,6 +4,7 @@ To setup locally ,fork this project or download zip. Then first run `npm install
 Then run `npm start`\
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+### Live link: https://github-query.herokuapp.com
 
 ## How it works
 This app fetches repositories from the github api according to the name of the organization that shall\
@@ -18,5 +19,5 @@ the `Top Contributors` by clicking the link and the number of contributors is al
 
 
 ## Rate Limit 
-The github api has a rate limit of 60 requests per hour so if you get an error `403 rate limit exceeded` please wait for some time and try again
+The github api has a rate limit of 60 requests per hour so if you get an error even after giving valid inputs please wait for some time and try again.
 
