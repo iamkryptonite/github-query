@@ -2,10 +2,10 @@ import React from 'react'
 import Repos from '../Repos';
 import './style.css';
 class Home extends React.Component{
-  state = {...this.props.data};
+  state = {...this.props.data,status:this.props.status};
   componentDidUpdate(prevProps){
     if(this.props!==prevProps){
-      this.setState({...this.props.data})
+      this.setState({...this.props.data,status:this.props.status})
     }
   }
   render(){

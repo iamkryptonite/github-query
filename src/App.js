@@ -63,7 +63,7 @@ class App extends React.Component{
         </Form>
         <div className="content">
           <Router>
-            <Route exact path="/"><Home data={this.state} handleClick={this.handleClick}/></Route>
+            <Route exact path="/"><Home data={this.state} handleClick={this.handleClick} status={this.state.status}/></Route>
             <Route path="/contributors"><Contributors repo={this.state.repo} org={this.state.org} m={this.state.m}/></Route>
           </Router>
         </div>
