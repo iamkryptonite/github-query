@@ -21,8 +21,7 @@ class Repos extends React.Component{
                                 <div  className="repo" key={e.id}>
                                     <h4 key={e.id} >{e.name} - {e.forks}</h4>
                                     <p>{e.desc}</p>
-                                    {/* <a onClick={()=>this.props.handleClick(e)}>Contributors</a> */}
-                                    <Link onClick={()=>this.props.handleClick(e)} to="/contributors">Contributors</Link>
+                                    <Link onClick={()=>this.props.handleClick(e)} to="/contributors">Top Contributors</Link>
                                 </div>
                             )
                         })

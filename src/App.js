@@ -5,11 +5,11 @@ import        './App.css';
 import Form from './components/Form';
 import Home from './components/Home';
 import Contributors from './components/Contributors';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router,Route} from "react-router-dom";
 
-const cache = new Cache(3600 * 1000);    // Create a cache with 1 hr TTL
+const cache = new Cache(3600 * 1000);
 class App extends React.Component{
-  state = {org:"",m:"",n:"",data:[]};
+  state = {org:"",m:"",n:"",data:[],redirect:true};
   componentDidUpdate(prevState){
     if(this.state.org!==prevState.org){
       var tmp=[];
@@ -54,11 +54,11 @@ class App extends React.Component{
       org:event.target.elements.org.value,
       m:event.target.elements.m.value,
       n:event.target.elements.n.value,
+      redirect:true
     })
-    // console.log(this.state);
   }
   handleClick=(e)=>{
-    this.setState({repo:e})
+    this.setState({repo:e,redirect:false})
     console.log(this.state);
   }
   render(){
@@ -76,6 +76,6 @@ class App extends React.Component{
         </Router>
       </div>
     )
-    }
+  }
 }
 export default App;

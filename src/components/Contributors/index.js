@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import './style.css';
+// import { BrowserRouter as Router, Route ,Link, Redirect} from "react-router-dom";
 class Contributors extends React.Component{
     state={...this.props.repo};
     componentDidMount(){
@@ -29,12 +31,13 @@ class Contributors extends React.Component{
             return(
                 <>
                     <h3>Top Contributors</h3>
-                    <h1>{this.state.name}</h1>
+                    <h1>Repository : {this.state.name}</h1>
                     {
                         this.state.data.map((e)=>{
                             return(
-                                <div key={e.id}>
-                                    <h4>{e.name} - {e.contributions}</h4>
+                                <div className="contributor" key={e.id}>
+                                    <h4>Name : {e.name}</h4>
+                                    <h4>Commits : {e.contributions}</h4>
                                 </div>
                             )
                         })
@@ -43,7 +46,9 @@ class Contributors extends React.Component{
             )
         }else{
             return(
-                <></>
+                <>
+                    {/* <Redirect to="/"></Redirect> */}
+                </>
             )
         }
     }

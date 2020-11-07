@@ -1,0 +1,7 @@
+div.contributor{
+    background-color: rgb(233, 233, 233);
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}

@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { withRouter} from "react-router-dom";
 import './style.css';
 class Form extends React.Component{
     render(){
         return(
-        <>
+        <div className="form">
             <form onSubmit={this.props.handleSubmit}>
                 <label>Organization :
                     <input type="text" name="org" />
@@ -14,9 +15,9 @@ class Form extends React.Component{
                 <label> n :
                     <input type="text" name="n" />
                 </label>
-                <input type="submit" value="Search" />
+                <input  className="search" type="submit" value="Search" />
             </form>
-        </>
+        </div>
     )
   }
 }
