@@ -6,8 +6,6 @@ class Repos extends React.Component{
     componentDidUpdate(prevProps){
         if(this.state.data!==this.props.data){
             this.setState({data:this.props.data});
-        }else if(this.props.n!==prevProps.n){
-            console.log(this.props.data);
         }
     }
     showRepos=()=>{

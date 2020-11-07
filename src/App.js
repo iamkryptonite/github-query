@@ -10,39 +10,30 @@ import { BrowserRouter as Router,Route} from "react-router-dom";
 const cache = new Cache(3600 * 1000);
 class App extends React.Component{
   state = {org:"",m:null,n:null,data:[],status:200};
-  componentDidUpdate(prevState){
-    if(this.state!==prevState){
-      var tmp=[];
-      if(this.state.org && !cache.get(this.state.org)){
-        axios.get('https://api.github.com/orgs/'+this.state.org+'/repos')
-        .then((response)=>{
-            response.data.forEach(e=>{
-                tmp.push({
-                    id:e.id,
-                    name:e.name,
-                    forks:e.forks_count,
-                    contributors_url:e.contributors_url,
-                    desc:e.description
-                })
+  getData=(org)=>{
+    var tmp=[];
+    axios.get('https://api.github.com/orgs/'+org+'/repos')
+    .then((response)=>{
+        response.data.forEach(e=>{
+            tmp.push({
+                id:e.id,
+                name:e.name,
+                forks:e.forks_count,
+                contributors_url:e.contributors_url,
+                desc:e.description
             })
         })
-        .then(()=>{
-            tmp.sort(function(a,b){
-                return b.forks-a.forks
-            })
-            this.setState({data:tmp})
-            cache.put(this.state.org,this.state.data);
+    })
+    .then(()=>{
+        tmp.sort(function(a,b){
+            return b.forks-a.forks
         })
-        .catch((error)=>{
-          this.setState({status:404})
-        })
-      }
-    }else if(cache.get(this.state.org)){
-      var store = cache.get(this.state.org);
-      this.setState({
-        data:store.data
-      })
-    }
+        this.setState({data:tmp})
+        cache.put(org,tmp);
+    })
+    .catch((error)=>{
+      this.setState({status:404})
+    })
   }
   handleSubmit=(event)=> {
     event.preventDefault();
@@ -52,6 +43,11 @@ class App extends React.Component{
       m:parseInt(event.target.elements.m.value),
       n:parseInt(event.target.elements.n.value),
     })
+    if(!cache.get(cache.get("org"))){
+      this.getData(cache.get("org"));
+    }else{
+      this.setState({ data:cache.get(cache.get("org")) })
+    }
   }
   handleClick=(e)=>{
     this.setState({repo:e})

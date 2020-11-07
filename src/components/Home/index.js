@@ -9,7 +9,7 @@ class Home extends React.Component{
     }
   }
   render(){
-    if(this.state.data.length!==0){
+    if(this.state.data && this.state.data.length!==0){
       return (
         <div className="home">
           <Repos
