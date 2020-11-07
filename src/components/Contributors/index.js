@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import './style.css';
 import { Redirect } from 'react-router-dom';
-// import { BrowserRouter as Router, Route ,Link, Redirect} from "react-router-dom";
 class Contributors extends React.Component{
     state={...this.props.repo,org:this.props.org,m:this.props.m};
     componentDidMount(){
@@ -23,23 +22,22 @@ class Contributors extends React.Component{
                     return b.contributions-a.contributions
                 })
                 this.setState({data:tmp})
-                console.log(this.state);
             })
         }
     }
     componentDidUpdate(prevProps){
-        if(prevProps.org!==this.props.org || prevProps.n!==this.props.n){
-            console.log("changed!");
-            this.setState({changed:true});
-        }
-        if(prevProps.m!==this.props.m){
-            this.setState({m:this.props.m});
+        if(prevProps!==this.props){
+            if(prevProps.org!==this.props.org || prevProps.n!==this.props.n){
+                this.setState({changed:true});
+            }
+            else if(prevProps.m!==this.props.m){
+                this.setState({m:this.props.m});
+            }
         }
     }
     showContributors=()=>{
         var m = this.state.m;
-        const data = [...this.state.data];
-        console.log(m);
+        var data = [...this.state.data];
         if(m!=="" && m>=0){
             while(data.length>m){
                 data.pop();

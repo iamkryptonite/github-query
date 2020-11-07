@@ -19,3 +19,6 @@ div.form{
     color: #fff;
     margin-bottom: 30px;
 }
+input.search:hover{
+    background-color: rgb(9, 40, 68);
+}

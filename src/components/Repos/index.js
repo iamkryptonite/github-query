@@ -12,7 +12,7 @@ class Repos extends React.Component{
     }
     showRepos=()=>{
         var n = this.props.n;
-        const data = [...this.state.data];
+        var data = [...this.state.data];
         if(n!==""){
             while(data.length>n){
                 data.pop();
