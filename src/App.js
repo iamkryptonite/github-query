@@ -50,6 +50,7 @@ class App extends React.Component{
   }
   handleSubmit=(event)=> {
     event.preventDefault();
+    cache.put("org",event.target.elements.org.value);
     this.setState({
       org:event.target.elements.org.value,
       m:event.target.elements.m.value,
@@ -70,10 +71,12 @@ class App extends React.Component{
             m={this.state.m}
             n={this.state.n}>
         </Form>
-        <Router>
-          <Route exact path="/"><Home data={this.state} handleClick={this.handleClick}/></Route>
-          <Route path="/contributors"><Contributors repo={this.state.repo}/></Route>
-        </Router>
+        <div className="content">
+          <Router>
+            <Route exact path="/"><Home data={this.state} handleClick={this.handleClick}/></Route>
+            <Route path="/contributors"><Contributors repo={this.state.repo} org={this.state.org}/></Route>
+          </Router>
+        </div>
       </div>
     )
   }

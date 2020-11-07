@@ -6,15 +6,9 @@ class Form extends React.Component{
         return(
         <div className="form">
             <form onSubmit={this.props.handleSubmit}>
-                <label>Organization :
-                    <input type="text" name="org" />
-                </label>
-                <label> m :
-                    <input type="text" name="m" />
-                </label>
-                <label> n :
-                    <input type="text" name="n" />
-                </label>
+                <input type="text" name="org" placeholder="organisation name"/>
+                <input type="text" name="n" placeholder="number of repositories"/>
+                <input type="text" name="m" placeholder="number of contributors"/>
                 <input  className="search" type="submit" value="Search" />
             </form>
         </div>

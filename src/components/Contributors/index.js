@@ -3,7 +3,7 @@ import axios from 'axios';
 import './style.css';
 // import { BrowserRouter as Router, Route ,Link, Redirect} from "react-router-dom";
 class Contributors extends React.Component{
-    state={...this.props.repo};
+    state={...this.props.repo,org:this.props.org};
     componentDidMount(){
         var tmp=[];
         if(this.state.contributors_url){
@@ -26,8 +26,14 @@ class Contributors extends React.Component{
             })
         }
     }
+    componentDidUpdate(prevProps){
+        if(prevProps.org!==this.props.org){
+            console.log("changed!");
+            this.setState({changed:true});
+        }
+    }
     render(){
-        if(this.state.data){
+        if(this.state.data && !this.state.changed){
             return(
                 <>
                     <h3>Top Contributors</h3>
@@ -47,7 +53,7 @@ class Contributors extends React.Component{
         }else{
             return(
                 <>
-                    {/* <Redirect to="/"></Redirect> */}
+                    <a href="/">Homepage</a>
                 </>
             )
         }
