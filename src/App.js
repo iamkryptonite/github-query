@@ -9,7 +9,7 @@ import { BrowserRouter as Router,Route} from "react-router-dom";
 
 const cache = new Cache(3600 * 1000);
 class App extends React.Component{
-  state = {org:"",m:"",n:"",data:[],redirect:true};
+  state = {org:"",m:null,n:null,data:[]};
   componentDidUpdate(prevState){
     if(this.state!==prevState){
       var tmp=[];
@@ -50,10 +50,9 @@ class App extends React.Component{
     cache.put("org",event.target.elements.org.value);
     this.setState({
       org:event.target.elements.org.value,
-      m:event.target.elements.m.value,
-      n:event.target.elements.n.value,
+      m:parseInt(event.target.elements.m.value),
+      n:parseInt(event.target.elements.n.value),
     })
-    console.log(this.state);
   }
   handleClick=(e)=>{
     this.setState({repo:e})

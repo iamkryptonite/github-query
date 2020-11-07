@@ -2,28 +2,24 @@ import React from 'react';
 import './style.css';
 import {Link} from "react-router-dom";
 class Repos extends React.Component{
-    state={...this.props}
-    componentDidMount(){
-        this.setState({data:this.props.data,n:this.props.n});
-    }
+    state={...this.props};
     componentDidUpdate(prevProps){
-        if(this.state.data!==this.props.data || this.state.n!==this.props.n || this.props!==prevProps){
-            this.setState({data:this.props.data,n:this.props.n});
-            // console.log(this.props)
+        if(this.state.data!==this.props.data){
+            this.setState({data:this.props.data});
+        }else if(this.props.n!==prevProps.n){
+            console.log(this.props.data);
         }
     }
     showRepos=()=>{
-        let n = this.state.n;
-        var tmp = new Array();
-        tmp = this.state.data;
-        console.log(n);
+        var n = this.props.n;
+        const data = [...this.state.data];
         if(n!==""){
-            while(tmp.length>n){
-                tmp.pop();
+            while(data.length>n){
+                data.pop();
             }
         }
         return(
-            tmp.map((e)=>{
+            data.map((e)=>{
                 return(
                     <div  className="repo" key={e.id}>
                         <h4 key={e.id} >{e.name} - {e.forks}</h4>

@@ -37,7 +37,7 @@ class Contributors extends React.Component{
     }
     showContributors=()=>{
         var m = this.state.m;
-        var data = this.state.data;
+        const data = [...this.state.data];
         console.log(m);
         if(m!=="" && m>=0){
             while(data.length>m){
@@ -46,7 +46,7 @@ class Contributors extends React.Component{
         }
         return(
             <>
-                <h3>Top Contributors</h3>
+                <h3>Top {this.state.m} Contributors</h3>
                 <h1>Repository : {this.state.name}</h1>
                 {
                     data.map((e)=>{
