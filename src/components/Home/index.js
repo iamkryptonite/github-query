@@ -3,13 +3,6 @@ import Repos from '../Repos';
 import './style.css';
 class Home extends React.Component{
   state = {...this.props.data};
-  // componentDidMount(){
-  //   this.setState({org:this.props.data.org,
-  //     m:this.props.data.m,
-  //     n:this.props.data.n,
-  //     data:this.props.data.data
-  //   })
-  // }
   componentDidUpdate(prevProps){
     if(this.props!==prevProps){
       this.setState({...this.props.data})
